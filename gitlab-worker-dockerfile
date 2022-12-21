@@ -1,0 +1,18 @@
+FROM ubuntu:focal
+RUN apt-get update;DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
+RUN apt-get update; apt-get install -y apt-transport-https ca-certificates gnupg lsb-release curl unzip wget software-properties-common gnupg python3-pip
+RUN wget https://raw.githubusercontent.com/SchedMD/slurm-gcp/master/scripts/requirements.txt
+RUN pip install -r requirements.txt
+RUN pip install addict utils launchpadlib google-api-python-client google-cloud-secret-manager google-cloud-pubsub googleapis-common-protos google-api-core google-auth-httplib2 google-auth oauth2client==3.0.0
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+RUN curl https://apt.releases.hashicorp.com/gpg | apt-key add -
+RUN echo "deb https://apt.releases.hashicorp.com $(lsb_release -cs) main" | tee -a /etc/apt/sources.list.d/hashicorp.list
+RUN echo "deb https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+RUN apt-add-repository ppa:ansible/ansible
+RUN apt-get update;apt-get install -y google-cloud-cli git terraform ansible postgresql-client
+RUN wget -O helm.tar.gz https://get.helm.sh/helm-v3.10.3-linux-amd64.tar.gz;tar -zxvf helm.tar.gz; cp linux-amd64/helm /bin
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl";cp kubectl /bin
+RUN wget -O crane.tar.gz https://github.com/google/go-containerregistry/releases/download/v0.12.1/go-containerregistry_Linux_x86_64.tar.gz
+RUN tar -zxvf crane.tar.gz
+RUN cp crane /bin;cp gcrane /bin
+COPY twistcli /bin
