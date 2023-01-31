@@ -1,0 +1,5 @@
+https://gitlab.com/gitlab-org/charts/gitlab/-/blob/master/doc/quickstart/index.md
+--
+
+helm repo add gitlab https://charts.gitlab.io/
+helm template gitlab gitlab/gitlab --set global.hosts.domain=DOMAIN   --set certmanager-issuer.email=me@example.com
