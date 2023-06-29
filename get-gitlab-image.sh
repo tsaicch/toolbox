@@ -11,6 +11,8 @@ env_init()
 
 
 #helm search repo gitlab --versions
+#download chart as file
+#helm pull teleport/teleport-cluster --version 13.1.5
 # versions is chart version
 #helm template gitlab15-4-6 gitlab/gitlab --version 6.4.6 --set global.hosts.domain=DOMAIN   --set certmanager-issuer.email=me@example.com
 #helm template gitlab15-4-6 gitlab/gitlab --version 6.4.6 --set global.hosts.domain=DOMAIN   --set certmanager-issuer.email=me@example.com|grep image|awk -F: '{print $2":"$3}'|sed 's/"//g'|grep -v IfNotPrese
