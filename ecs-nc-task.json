@@ -1,0 +1,217 @@
+{
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:392196042485:task-definition/ncserverless-ecs-nextcloud:1",
+    "containerDefinitions": [
+        {
+            "name": "nextcloud",
+            "image": "nextcloud:23.0.1-apache",
+            "cpu": 0,
+            "links": [],
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "entryPoint": [],
+            "command": [],
+            "environment": [
+                {
+                    "name": "POSTGRES_USER",
+                    "value": "nextcloud"
+                },
+                {
+                    "name": "REDIS_HOST",
+                    "value": "ncr7syo4j45kunj.ckiaxw.ng.0001.use1.cache.amazonaws.com"
+                },
+                {
+                    "name": "OBJECTSTORE_S3_KEY",
+                    "value": "AKIAVWUFUV32RZN3X6XH"
+                },
+                {
+                    "name": "POSTGRES_HOST",
+                    "value": "ncserverless-rdsstack-13qz4gps8-postgresrdscluster-dfdiyyedqekg.cluster-cb0tfal8slh9.us-east-1.rds.amazonaws.com"
+                },
+                {
+                    "name": "NEXTCLOUD_ADMIN_PASSWORD",
+                    "value": "1qaz2wsx"
+                },
+                {
+                    "name": "POSTGRES_PASSWORD",
+                    "value": "1qaz2wsx"
+                },
+                {
+                    "name": "POSTGRES_DB",
+                    "value": "nextcloud"
+                },
+                {
+                    "name": "OBJECTSTORE_S3_SECRET",
+                    "value": "EQFs2l5V/hpiiU6dcorexhK625mQ//BBWslbp6fY"
+                },
+                {
+                    "name": "OBJECTSTORE_S3_BUCKET",
+                    "value": "ncserverless-databucket-uckkv26f0ai4"
+                },
+                {
+                    "name": "REDIS_PORT",
+                    "value": "6379"
+                },
+                {
+                    "name": "NEXTCLOUD_TRUSTED_DOMAINS",
+                    "value": " ncser-Elast-14E5AY7JDAOSL-143754577.us-east-1.elb.amazonaws.com"
+                },
+                {
+                    "name": "NEXTCLOUD_ADMIN_USER",
+                    "value": "ncadmin"
+                },
+                {
+                    "name": "OVERWRITEPROTOCOL",
+                    "value": "http"
+                },
+                {
+                    "name": "OBJECTSTORE_S3_REGION",
+                    "value": "us-east-1"
+                }
+            ],
+            "environmentFiles": [],
+            "mountPoints": [
+                {
+                    "sourceVolume": "nextcloud",
+                    "containerPath": "/var/www/html"
+                },
+                {
+                    "sourceVolume": "apps",
+                    "containerPath": "/var/www/html/custom_apps"
+                },
+                {
+                    "sourceVolume": "config",
+                    "containerPath": "/var/www/html/config"
+                },
+                {
+                    "sourceVolume": "data",
+                    "containerPath": "/var/www/html/data"
+                }
+            ],
+            "volumesFrom": [],
+            "secrets": [],
+            "dnsServers": [],
+            "dnsSearchDomains": [],
+            "extraHosts": [],
+            "dockerSecurityOptions": [],
+            "dockerLabels": {},
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "nc-serverless-ncserverless",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "nextcloud"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        }
+    ],
+    "family": "ncserverless-ecs-nextcloud",
+    "taskRoleArn": "arn:aws:iam::392196042485:role/ncserverless-ECSTaskRole-ZY6MR6DATX2A",
+    "executionRoleArn": "arn:aws:iam::392196042485:role/ncserverless-ECSTaskExecRole-1I7VZVJGFTQ3P",
+    "networkMode": "awsvpc",
+    "revision": 1,
+    "volumes": [
+        {
+            "name": "apps",
+            "efsVolumeConfiguration": {
+                "fileSystemId": "fs-0a6b346135014eb86",
+                "rootDirectory": "/",
+                "transitEncryption": "ENABLED",
+                "authorizationConfig": {
+                    "accessPointId": "fsap-04a2ad7df54129795",
+                    "iam": "ENABLED"
+                }
+            }
+        },
+        {
+            "name": "data",
+            "efsVolumeConfiguration": {
+                "fileSystemId": "fs-0a6b346135014eb86",
+                "rootDirectory": "/",
+                "transitEncryption": "ENABLED",
+                "authorizationConfig": {
+                    "accessPointId": "fsap-0e606a075de5b80f0",
+                    "iam": "ENABLED"
+                }
+            }
+        },
+        {
+            "name": "config",
+            "efsVolumeConfiguration": {
+                "fileSystemId": "fs-0a6b346135014eb86",
+                "rootDirectory": "/",
+                "transitEncryption": "ENABLED",
+                "authorizationConfig": {
+                    "accessPointId": "fsap-0faf8eee5369010ee",
+                    "iam": "ENABLED"
+                }
+            }
+        },
+        {
+            "name": "nextcloud",
+            "efsVolumeConfiguration": {
+                "fileSystemId": "fs-0a6b346135014eb86",
+                "rootDirectory": "/",
+                "transitEncryption": "ENABLED",
+                "authorizationConfig": {
+                    "accessPointId": "fsap-079459609cb0a21ab",
+                    "iam": "ENABLED"
+                }
+            }
+        }
+    ],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "ecs.capability.efsAuth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "ecs.capability.efs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.25"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "2048",
+    "registeredAt": "2023-07-13T02:15:55.326Z",
+    "registeredBy": "arn:aws:iam::392196042485:user/cloud_user",
+    "tags": []
+}
