@@ -22,4 +22,4 @@ helm search repo gitlab --versions
 #helm template gitlab15-4-6 gitlab/gitlab --version 6.4.6 --set global.hosts.domain=DOMAIN   --set certmanager-issuer.email=me@example.com|grep image|awk -F: '{print $2":"$3}'|sed 's/"//g'|grep -v IfNotPrese
 helm template gitlab-temp gitlab/gitlab --version $GITLAB_CHART_VERSION --set global.hosts.domain=DOMAIN   --set certmanager-issuer.email=me@example.com|grep image|awk -F: '{print $2":"$3}'|sed 's/"//g'|grep -v IfNotPrese|sed 's/@sha256//g' |sed 's/^[ \t]*//g'
 
-for i in `cat gitlab-image-15-11-12.list `;do echo " FROM $i" > Dockerfile; mylabbuild tsaicch/$i;done
+for i in `cat gitlab-image-15-11-12.list `;do echo "FROM $i" > Dockerfile; mylabbuild tsaicch/$i;done
