@@ -6,14 +6,13 @@ env_init()
 {
   wget -O helm.tar.gz https://get.helm.sh/helm-v3.11.1-linux-amd64.tar.gz
   tar xf helm.tar.gz --strip-components=1 -C /usr/bin/ linux-amd64/helm
-  helm repo add gitlab https://charts.gitlab.io/
 }
 
 if ! command -v helm &> /dev/null; then
         env_init
 fi
 
-
+helm repo add gitlab https://charts.gitlab.io/
 helm search repo gitlab --versions
 #download chart as file
 #helm pull teleport/teleport-cluster --version 13.1.5
