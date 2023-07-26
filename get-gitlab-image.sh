@@ -9,11 +9,17 @@ env_init()
   helm repo add gitlab https://charts.gitlab.io/
 }
 
+if ! command -v helm &> /dev/null; then
+        env_init
+fi
 
-#helm search repo gitlab --versions
+
+helm search repo gitlab --versions
 #download chart as file
 #helm pull teleport/teleport-cluster --version 13.1.5
 # versions is chart version
 #helm template gitlab15-4-6 gitlab/gitlab --version 6.4.6 --set global.hosts.domain=DOMAIN   --set certmanager-issuer.email=me@example.com
 #helm template gitlab15-4-6 gitlab/gitlab --version 6.4.6 --set global.hosts.domain=DOMAIN   --set certmanager-issuer.email=me@example.com|grep image|awk -F: '{print $2":"$3}'|sed 's/"//g'|grep -v IfNotPrese
-helm template gitlab15-4-6 gitlab/gitlab --version 6.4.6 --set global.hosts.domain=DOMAIN   --set certmanager-issuer.email=me@example.com|grep image|awk -F: '{print $2":"$3}'|sed 's/"//g'|grep -v IfNotPrese|sed 's/@sha256//g' |sed 's/^[ \t]*//g'
+helm template gitlab-temp gitlab/gitlab --version $GITLAB_CHART_VERSION --set global.hosts.domain=DOMAIN   --set certmanager-issuer.email=me@example.com|grep image|awk -F: '{print $2":"$3}'|sed 's/"//g'|grep -v IfNotPrese|sed 's/@sha256//g' |sed 's/^[ \t]*//g'
+
+for i in `cat gitlab-image-15-11-12.list `;do echo " FROM $i" > Dockerfile; mylabbuild tsaicch/$i;done
