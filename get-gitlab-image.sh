@@ -5,7 +5,7 @@ GITLAB_CHART_VERSION=6.4.6
 env_init()
 {
   wget -O helm.tar.gz https://get.helm.sh/helm-v3.11.1-linux-amd64.tar.gz
-  tar xf helm.tar.gz --strip-components=1 -C /usr/bin/ linux-amd64/helm
+  sudo tar xf helm.tar.gz --strip-components=1 -C /usr/bin/ linux-amd64/helm
 }
 
 if ! command -v helm &> /dev/null; then
@@ -23,4 +23,4 @@ helm template gitlab-temp gitlab/gitlab --version $GITLAB_CHART_VERSION --set gl
 
 helm pull gitlab/gitlab --version $GITLAB_CHART_VERSION
 
-for i in `cat $GITLAB_VERSION-gitlab-image-list`;do echo "FROM $i" > Dockerfile; mylabbuild tsaicch/$i;done
+for i in `cat $GITLAB_VERSION-gitlab-image-list`;do echo "FROM $i" > Dockerfile; mylabbuild tsaicch/gitlab-$GITLAB_VERSION/$i;done
