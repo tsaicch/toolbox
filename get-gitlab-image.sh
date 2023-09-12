@@ -23,4 +23,9 @@ helm template gitlab-temp gitlab/gitlab --version $GITLAB_CHART_VERSION --set gl
 
 helm pull gitlab/gitlab --version $GITLAB_CHART_VERSION
 
+#pull gitlab-ee image for gitaly and praefect
+echo "FROM gitlab/gitlab-ee:$GITLAB_VERSION-ee.0" > Dockerfile
+mylabbuild tsaicch/gitlab-$GITLAB_VERSION/gitlab-ee:$GITLAB_VERSION-ee.0
+
+
 for i in `cat $GITLAB_VERSION-gitlab-image-list`;do echo "FROM $i" > Dockerfile; mylabbuild tsaicch/gitlab-$GITLAB_VERSION/$i;done
