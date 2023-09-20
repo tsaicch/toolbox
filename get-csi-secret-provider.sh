@@ -22,3 +22,9 @@ helm pull secrets-store-csi-driver/secrets-store-csi-driver --version $SECRET_CS
 #mylabbuild tsaicch/gitlab-$GITLAB_VERSION/gitlab-ee:$GITLAB_VERSION-ee.0
 
 for i in `cat $SECRET_CSI_VERSION-secrets-store-csi-driver-image-list`;do echo "FROM $i" > Dockerfile; mylabbuild tsaicch/secrets-store-csi-driver-$SECRET_CSI_VERSION/$i;done
+
+## for secret-provider-class gcp plugin
+wget -O provider-gcp-plugin.yaml https://raw.githubusercontent.com/GoogleCloudPlatform/secrets-store-csi-driver-provider-gcp/main/deploy/provider-gcp-plugin.yaml
+echo "FROM " > Dockfile
+cat provider-gcp-plugin.yaml|grep image:|awk '{print $2}' >> Dockerfile
+mylabbuild tsaicch/secrets-store-csi-driver-gcp-plugin
