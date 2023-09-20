@@ -25,6 +25,8 @@ for i in `cat $SECRET_CSI_VERSION-secrets-store-csi-driver-image-list`;do echo "
 
 ## for secret-provider-class gcp plugin
 wget -O provider-gcp-plugin.yaml https://raw.githubusercontent.com/GoogleCloudPlatform/secrets-store-csi-driver-provider-gcp/main/deploy/provider-gcp-plugin.yaml
-echo "FROM " > Dockerfile
-cat provider-gcp-plugin.yaml|grep image:|awk '{print $2}' >> Dockerfile
+
+tmp1=$(cat provider-gcp-plugin.yaml|grep image:|awk '{print $2}')
+echo "FROM $tmp1" > Dockerfile
+
 mylabbuild tsaicch/secrets-store-csi-driver-gcp-plugin
