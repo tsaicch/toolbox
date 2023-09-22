@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-mount -t nfs -o nolock,hard,async,rsize=262144,wsize=1048576 $FILESTORE_IP_ADDRESS:/$FILESTORE_SHARE_NAME $FILESTORE_MOUNT_DIR
+mount -o nolock,hard,async,rsize=262144,wsize=1048576 $FILESTORE_IP_ADDRESS:/$FILESTORE_SHARE_NAME $FILESTORE_MOUNT_DIR
 
 # version_greater A B returns whether A > B
 version_greater() {
