@@ -22,6 +22,7 @@ helm search repo gitlab --versions
 helm template gitlab-temp gitlab/gitlab --version $GITLAB_CHART_VERSION --set global.hosts.domain=DOMAIN   --set certmanager-issuer.email=me@example.com|grep image|awk -F: '{print $2":"$3}'|sed 's/"//g'|grep -v IfNotPrese|sed 's/@sha256//g' |sed 's/^[ \t]*//g'|tee $GITLAB_VERSION-gitlab-image-list
 
 helm pull gitlab/gitlab --version $GITLAB_CHART_VERSION
+helm search repo gitlab --versions|grep gitlab-runner #helm pull gitlab/gitlab-runner --versions 
 
 #pull gitlab-ee image for gitaly and praefect
 echo "FROM gitlab/gitlab-ee:$GITLAB_VERSION-ee.0" > Dockerfile
