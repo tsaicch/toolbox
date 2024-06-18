@@ -1,0 +1,2 @@
+How to convert privatekey into singleline
+$ awk -v ORS='\\n' '1' karnov-review.2019-01-21.private-key.pem | pbcopy
