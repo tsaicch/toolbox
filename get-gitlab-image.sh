@@ -19,7 +19,7 @@ helm search repo gitlab --versions
 # versions is chart version
 #helm template gitlab15-4-6 gitlab/gitlab --version 6.4.6 --set global.hosts.domain=DOMAIN   --set certmanager-issuer.email=me@example.com
 #helm template gitlab15-4-6 gitlab/gitlab --version 6.4.6 --set global.hosts.domain=DOMAIN   --set certmanager-issuer.email=me@example.com|grep image|awk -F: '{print $2":"$3}'|sed 's/"//g'|grep -v IfNotPrese
-helm template gitlab-temp gitlab/gitlab --version $GITLAB_CHART_VERSION --set global.hosts.domain=DOMAIN   --set certmanager-issuer.email=me@example.com|grep image|awk -F: '{print $2":"$3}'|sed 's/"//g'|grep -v IfNotPrese|sed 's/@sha256//g' |sed 's/^[ \t]*//g'|tee $GITLAB_VERSION-gitlab-image-list
+helm template gitlab-temp gitlab/gitlab --version $GITLAB_CHART_VERSION --set global.hosts.domain=DOMAIN   --set certmanager-issuer.email=me@example.com|grep image:|awk -F: '{print $2":"$3}'|sed 's/"//g'|grep -v IfNotPrese|sed 's/@sha256//g' |sed 's/^[ \t]*//g'|tee $GITLAB_VERSION-gitlab-image-list
 
 helm pull gitlab/gitlab --version $GITLAB_CHART_VERSION
 helm search repo gitlab --versions|grep gitlab-runner #helm pull gitlab/gitlab-runner --versions 
