@@ -1,6 +1,10 @@
 #!/bin/bash
-GITLAB_VERSION=15.4.6
-GITLAB_CHART_VERSION=6.4.6
+GITLAB_VERSION=$1 #15.4.6
+#GITLAB_CHART_VERSION=$2 #6.4.6
+
+IFS='.' read -r major minor patch <<< "$GITLAB_VERSION"
+new_major=$(expr $major - 9)
+GITLAB_CHART_VERSION="$new_major.$minor.$path"
 
 env_init()
 {
