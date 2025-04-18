@@ -9,6 +9,11 @@ helm repo update
 #helm install gitlab gitlab/gitlab   --set certmanager.install=false   --set global.ingress.configureCertmanager=false   --set global.ingress.tls.secretName=gitlab-cert  --set nginx-ingress.rbac.createClusterRole=false  --set certmanager.rbac.create=false --set gitlab-runner.rbac.create=false --set prometheus.rbac.create=false --set nginx-ingress.rbac.createRole=false --set nginx-ingress.rbac.create=false --set global.ingress.enabled=false --set global.appConfig.object_store.enabled=false  --set gitlab-runner.install=false --set nginx-ingress.enabled=false --set global.kas.enabled=false -n devns1 
 helm install gitlab gitlab/gitlab   --set certmanager.install=false   --set global.ingress.configureCertmanager=false   --set global.ingress.tls.secretName=gitlab-cert  --set nginx-ingress.rbac.createClusterRole=false  --set certmanager.rbac.create=false --set gitlab-runner.rbac.create=false --set prometheus.rbac.create=false --set nginx-ingress.rbac.createRole=false --set nginx-ingress.rbac.create=false --set global.ingress.enabled=false --set global.appConfig.object_store.enabled=false  --set gitlab-runner.install=false --set nginx-ingress.enabled=false --set global.kas.enabled=false --set prometheus.install=false --set global.registry.enabled=false --set global. -n devns1
 
+# create gitlab tls cert
+
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=tsaicch-gitlab.isb.prod.gcp.tsmc.com"
+kubectl create secret tls gitlab-cert --cert=tls.crt --key=tls.key -n devns1
+
 # create gitlab ingress
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -28,3 +33,7 @@ spec:
             name: gitlab-webservice-default
             port:
               number: 8181
+   tls: 
+     - hosts:                                                                                                                           
+       - tsaicch-gitlab.isb.prod.gcp.tsmc.com
+       secretName: gitlab-cert
