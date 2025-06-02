@@ -33,6 +33,7 @@ kubectl scale deploy -lapp=prometheus,release=gitlab -n gitlab --replicas=0
 # Modify toolbox deployment to increase CPU and hostAlias
 # - toolbox pod需要多點CPU以免restore失敗
 # - toolbox 增加hostAlias minio.example.com <-> minio-svc mapping
+# - gitaly statefulset 需要多一點CPU與RAM以免失敗
 
 # kubecl cp gitlab-backup to toolbox pod的 /srv/gitlab/tmp 中
 
