@@ -14,6 +14,7 @@ helm template -n gitlab gitlab gitlab/gitlab \
   --set gitlab.migrations.resources.requests.memory=2Gi \
   --set gitlab.toolbox.persistence.enabled=true \
   --set gitlab.toolbox.persistence.size=15Gi \
+  --set gitlab.toolbox.resources.requests.cpu=1250m \
   -f no-tls.yaml
 
 # re-create rails secret 與來源環境相同 uat-cmp or prod-cmp
